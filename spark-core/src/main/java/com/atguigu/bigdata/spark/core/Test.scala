@@ -1,65 +1,27 @@
 package com.atguigu.bigdata.spark.core
 
+import org.apache.spark.{SparkConf, SparkContext}
+
 object Test {
-  def main(args: Array[String]): Unit = {
-//    println("hello scala");
+    def main(args: Array[String]): Unit = {
+      val sparkConf = new SparkConf()
+      sparkConf.setAppName("case_test")
+      sparkConf.setMaster("local[2]")
+      val sparkContext = new SparkContext(sparkConf)
+      val rdd = sparkContext.textFile("datas/people.txt")
+      rdd.map(line=>line.split(","))
+        .map(
+          line=>if(line.length == 1) (line(0))
+          else if(line.length == 2) (line(0),line(1))
+          else (line(0),line(1),line(2))
+        )
+        .map{
+          case (one) => ("one:"+one)
+          case (name,age) =>("name:"+name,"age:"+age)
+          case _ => ("_name","_age","_")
+        }
+        .foreach(println)
+    }
 
 
-//    var str : String = "ssss";
-//    var amount : Int = 123;
-//
-//    val map = ("key",123)
-//
-//    println(str)
-//    println(amount)
-//    println(map)
-
-//    var count : Int = _;
-//    var name : String = _;
-
-//    var tt = 3.3;
-    ////
-    ////    println(tt)
-
-
-    val array = new Array[Int](5);
-
-
-    val ints = array.:+(11)
-//    val ints = array.+:(55)
-
-//    array.foreach(println(_))
-//    ints.foreach(println)
-
-    println(array.mkString("--"))
-    println(ints.mkString("--"))
-
-    var list1 = 12 :: 13 :: 55 :: Nil
-
-    var list2 = 666 :: "b" :: "v" :: Nil
-
-//    println(list1)
-
-//    list1.foreach(println(_));
-
-    println(list1)
-    println(list2)
-
-    var list3= list1 ++ list2
-    println(list3)
-
-    println(list3==list1)
-    println(list2==list1)
-    println(list3==list2)
-
-    val list = List(1, 2, 3, 4);
-
-    val value = list.map(_ * 2)
-    println(value)
-    val value1 = list.map(x => x * x)
-    println(value1)
-
-
-
-  }
 }
