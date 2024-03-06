@@ -12,8 +12,10 @@ object SparkWordCount01 {
     val sc : SparkContext = new SparkContext(sparkConf)
     // 读取文件数据
     val fileRDD: RDD[String] = sc.textFile("datas")
+
     // 将文件中的数据进行分词
     val wordRDD: RDD[String] = fileRDD.flatMap( _.split(" ") )
+//    return wordRDD.foreach(println)
     // 转换数据结构 word => (word, 1)
     val word2OneRDD: RDD[(String, Int)] = wordRDD.map((_,1))
     // 将转换结构后的数据按照相同的单词进行分组聚合
