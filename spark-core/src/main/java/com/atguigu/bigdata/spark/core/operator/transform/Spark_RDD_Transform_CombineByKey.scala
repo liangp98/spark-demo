@@ -4,7 +4,7 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 
-object Spark_RDD_Transform_AggregateByKey02 {
+object Spark_RDD_Transform_CombineByKey {
   def main(args: Array[String]): Unit = {
     val sparkConf = new SparkConf();
     sparkConf.setMaster("local[*]").setAppName("RDD");
@@ -20,12 +20,14 @@ object Spark_RDD_Transform_AggregateByKey02 {
      * aggregateByKey 自定义分组聚合规则
      * 参数一： 与之运算的初始值
      * 参数二：
-     * ---参数1：各分区内的计算规则
-     * ---参数2：各分区间的计算规则
+     * ---参数1：将相同key的第一个数据进行格式转换
+     * ---参数2：各分区内的计算规则
+     * ---参数3：各分区间的计算规则
      */
-    val value: RDD[(String, (Int, Int))] = rdd.aggregateByKey((0, 0))(
-      (x, y) => (x._1 + y, x._2 + 1),
-      (x, y) => (x._1 + y._1, x._2 + y._2)
+    val value: RDD[(String, (Int, Int))] = rdd.combineByKey(
+      (v) =>(v,1),
+      (x:(Int,Int), y) => (x._1 + y, x._2 + 1),
+      (x:(Int,Int), y) => (x._1 + y._1, x._2 + y._2)
     )
     println(value.collect().mkString(","))
 
