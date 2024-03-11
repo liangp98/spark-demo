@@ -24,8 +24,8 @@ object Spark_RDD_Transform_AggregateByKey02 {
      * ---参数2：各分区间的计算规则
      */
     val value: RDD[(String, (Int, Int))] = rdd.aggregateByKey((0, 0))(
-      (x, y) => (x._1 + y, x._2 + 1),
-      (x, y) => (x._1 + y._1, x._2 + y._2)
+      (U, V) => (U._1 + V, U._2 + 1),
+      (U1, U2) => (U1._1 + U2._1, U1._2 + U2._2)
     )
     println(value.collect().mkString(","))
 

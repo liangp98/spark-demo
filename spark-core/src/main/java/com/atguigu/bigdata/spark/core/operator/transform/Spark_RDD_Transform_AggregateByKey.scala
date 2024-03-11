@@ -24,8 +24,8 @@ object Spark_RDD_Transform_AggregateByKey {
      *    ---参数2：各分区间的计算规则
      */
     rdd.aggregateByKey(0)(
-      (x:Int,y:Int)=>Math.max(x,y),
-      (x:Int,y:Int)=>x+y
+      (u:Int,v:Int)=>Math.max(u,v),
+      (u1:Int,u2:Int)=>u1+u2
     ).collect().foreach(println)
 
 
