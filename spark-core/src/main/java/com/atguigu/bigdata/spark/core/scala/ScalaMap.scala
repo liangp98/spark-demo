@@ -13,6 +13,14 @@ object ScalaMap {
     map.update("a",1001)
     println(map)
 
+
+    val ints: List[Int] = List(1, 2, 3, 4)
+    val tuples: List[(Int, Int)] = ints.zip(ints.tail)
+    tuples.foreach(println)
+    println("----------------")
+    val iterator: Iterator[List[Int]] = ints.sliding(2, 1)
+    iterator.foreach(println)
+
   }
 
 }

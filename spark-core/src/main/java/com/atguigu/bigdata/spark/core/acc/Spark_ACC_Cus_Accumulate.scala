@@ -6,6 +6,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable
 
+/**
+ * 自定义累加器
+ */
 object Spark_ACC_Cus_Accumulate {
   def main(args: Array[String]): Unit = {
     val sparkConf: SparkConf = new SparkConf().setMaster("local").setAppName("acc")
@@ -57,19 +60,19 @@ object Spark_ACC_Cus_Accumulate {
       val map1 = this.map
       val map2 = other.value
 
-      map2.foreach(
-        m =>{
-          val newCount = map1.getOrElse(m._1,0L) + m._2
-          map1.update(m._1,newCount)
-        }
-      )
+//      map2.foreach(
+//        m =>{
+//          val newCount = map1.getOrElse(m._1,0L) + m._2
+//          map1.update(m._1,newCount)
+//        }
+//      )
 
-//      map2.foreach{
-//          case (word,count) =>{
-//            val newCount= map1.getOrElse(word,0L)+count
-//            map1.update(word,newCount)
-//          }
-//      }
+      map2.foreach{
+          case (word,count) =>{
+            val newCount= map1.getOrElse(word,0L)+count
+            map1.update(word,newCount)
+          }
+      }
 
 
 
