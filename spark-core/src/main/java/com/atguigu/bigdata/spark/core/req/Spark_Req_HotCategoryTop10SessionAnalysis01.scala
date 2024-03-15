@@ -11,7 +11,7 @@ object Spark_Req_HotCategoryTop10SessionAnalysis01 {
 
     val sc = new SparkContext(sparkConf)
 
-    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action.txt")
+    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action_src.txt")
     srcRDD.cache()
 
     //获取top10的cid

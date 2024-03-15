@@ -14,7 +14,7 @@ object Spark_Req_HotCategoryTop10Analysis01 {
     val sc = new SparkContext(sparkConf)
 
     //获取数据
-    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action.txt")
+    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action_src.txt")
     //处理点击，下单，支付数据
     val value:RDD[(String,(Int,Int,Int))] = srcRDD.flatMap(
       line => {

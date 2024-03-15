@@ -11,7 +11,7 @@ object Spark_Req_PageflowAnalysis {
 
     val sc = new SparkContext(sparkConf)
 
-    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action.txt")
+    val srcRDD: RDD[String] = sc.textFile("datas/user_visit_action_src.txt")
     val dataPageRDD: RDD[UserVisitAction] = srcRDD.map(line => {
       val data: Array[String] = line.split("_")
       UserVisitAction(
